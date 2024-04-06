@@ -1,0 +1,71 @@
+// Given variables
+const dishData = [
+    {
+        name: "Italian pasta",
+        price: 9.55
+    },
+    {
+        name: "Rice with veggies",
+        price: 8.65
+    },
+    {
+        name: "Chicken with potatoes",
+        price: 15.55
+    },
+    {
+        name: "Vegetarian Pizza",
+        price: 6.45
+    },
+]
+const tax = 1.20;
+
+// Implement getPrices()
+function getPrices(taxBoolean) {
+    for (var i = 0; i < dishData.length; i++) {
+        const dish = dishData[i];
+        let finalPrice; //Declare finalPrice variable without assigning a value
+        // check if taxBoolean is true
+        if (taxBoolean == true) {
+            // Calculate final price with tax included
+            finalPrice = dishData[i].price * tax;
+        } else if (taxBoolean == false) {
+            // If taxBoolean is false, assign the original price to final Price
+            finalPrice = dishData[i].price;
+        } else {
+            //If taxBoolean is neither true nor false, log an error message and return
+            console.log("You need to pass a boolean to the getPrices call!");
+
+            return;
+        }
+        // Log dish information with formatted output
+        console.log("Dish: " + dishData[i].name + " Price: $" + finalPrice.toFixed(2)); // Ensure the price is formatted with two decimal places
+    }
+}
+
+// Implement getDiscount()
+function getDiscount(taxBoolean, guests) {
+    // Invoke getPrices() function with taxBoolean as an argument
+    getPrices(taxBoolean);
+
+    // check if guest parameter meet the conditions
+    if (typeof (guests) === 'number' && guests > 0 && guests < 30) {
+        var discount = 0;
+
+        // Check if the number of guests qualifies for discount
+        if (guests < 5) {
+            discount = 5;
+        } else if (guests >= 5) {
+            discount = 10;
+        }
+        // Log the discount
+        console.log('Discount is: $' + discount.toFixed(2)); // Ensure the discount is formatted with two decimal places
+    } else {
+        console.log('The second argument must be a number between 0 and 30')
+    }
+}
+
+// Call getDiscount()
+getDiscount(true, 2)
+getDiscount(false, 10)
+getDiscount()
+getDiscount(true, '10')
